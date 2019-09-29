@@ -315,7 +315,7 @@ public class Bird : Enemy
             swooping = false;
         }
 
-        if(transform.position.y <= GameObject.FindWithTag("Ground").transform.position.y + 5){
+        if(transform.position.y <= GameObject.FindWithTag("Ground").transform.position.y + 10){
             rb.AddForce(Vector2.up*2f, ForceMode2D.Impulse);
         }
         else{
