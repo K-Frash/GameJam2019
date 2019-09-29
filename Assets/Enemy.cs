@@ -136,6 +136,18 @@ public class Slime : Enemy
                 plyrRb.AddForce(Vector2.left*knockback, ForceMode2D.Impulse);
             }
         }
+        else if(other.gameObject.tag == "Wpn"){
+            rb.AddForce(Vector2.up*knockup, ForceMode2D.Impulse);
+            if(dir){
+                rb.AddForce(Vector2.left*knockback, ForceMode2D.Impulse);
+            }
+            else{
+                rb.AddForce(Vector2.right*knockback, ForceMode2D.Impulse);
+            }
+        }
+        else if(other.gameObject.tag != "Ground"){
+            dir = !dir;
+        }
 
         IEnumerator WaitTime() {
             float tmp = dX;
@@ -233,6 +245,15 @@ public class Fish : Enemy
             plyHit = true;
             Jump("strong");
         }
+        else if(other.gameObject.tag == "Wpn"){
+            dir = !dir;
+            strJ = true;
+            plyHit = false;
+            Jump("weak");
+        }
+        else if(other.gameObject.tag != "Ground"){
+            dir = !dir;
+        }
         else{
             strJ = false;
             plyHit = false;
@@ -265,7 +286,7 @@ public class Bird : Enemy
         col = gameObject.GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         col.color = Color.red;
-        rb.gravityScale = 0;
+        rb.gravityScale = 1;
         plyr =  GameObject.FindGameObjectWithTag("Plyr");
         plyrTrns = plyr.GetComponent<Transform>();
         plyrRb = plyr.GetComponent<Rigidbody2D>();
@@ -275,7 +296,7 @@ public class Bird : Enemy
     bool swooping = false;
     void Swoop(){
         swooping = true;
-        rb.AddForce(Vector2.down*15f, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.down*30f, ForceMode2D.Impulse);
     }
 
     public override void MoveEnemy(){
@@ -294,11 +315,11 @@ public class Bird : Enemy
             swooping = false;
         }
 
-        if(transform.position.y <= GameObject.FindWithTag("Ground").transform.position.y + 5 && !swooping){
-            movement.y = 0.1f;
+        if(transform.position.y <= GameObject.FindWithTag("Ground").transform.position.y + 5){
+            rb.AddForce(Vector2.up*2f, ForceMode2D.Impulse);
         }
         else{
-            movement.y = 0f;
+            rb.AddForce(Vector2.down*2f, ForceMode2D.Impulse);
         }
 
         if(dir == true){
@@ -337,6 +358,17 @@ public class Bird : Enemy
             else{
                 plyrRb.AddForce(Vector2.left*5f, ForceMode2D.Impulse);
             }
+        }
+        else if(other.gameObject.tag == "Wpn"){
+            if(dir){
+                rb.AddForce(Vector2.left*15f, ForceMode2D.Impulse);
+            }
+            else{
+                rb.AddForce(Vector2.right*15f, ForceMode2D.Impulse);
+            }
+        }
+        else if(other.gameObject.tag != "Ground"){
+            dir = !dir;
         }
 
         IEnumerator WaitTime() {

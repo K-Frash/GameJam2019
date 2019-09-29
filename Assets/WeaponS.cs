@@ -2,27 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponS : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
-    GameObject Player;
-    Vector3 offset;
+    Vector2 movement;
+    SpriteRenderer col;
+
+    
+    bool dir = true; //True == Right, False = Left
+    float timer = 1f;
+    public float dX;
+    public float dY;
+    
+
+    //Public Variables for testing
+    
+    public int type = 0; //0 = slime, 1 = fish, 2 = bird
+
     // Start is called before the first frame update
-    void Start()
+    public virtual void Awake()
     {
-        gameObject.layer = 20;
-        Player = GameObject.Find("Player");
-        offset = new Vector3(1.0f, 0, 0);
+        Debug.Log("Basic Enemy Created");
+        col = gameObject.GetComponent<SpriteRenderer>();
+        col.color = Color.black;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.LeftArrow)) {
-            transform.position = Player.transform.position;
+    public virtual void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log(other.gameObject.tag);
+        if(other.gameObject.tag == "Wall"){
+            dir = !dir;
+           StartCoroutine(WaitTime());
         }
-        if (Input.GetKey(KeyCode.RightArrow)) {
-            transform.position = Player.transform.position + offset;
+
+        IEnumerator WaitTime() {
+            float tmp = dX;
+            dX = 0f;
+            yield return new WaitForSeconds(timer);
+            dX = tmp;
         }
-        Debug.Log(Player.transform.position);
     }
 }
+
+

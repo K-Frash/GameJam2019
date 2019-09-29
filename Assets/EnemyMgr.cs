@@ -11,6 +11,9 @@ public struct StatStruct{
 public class EnemyMgr : MonoBehaviour
 {
     Enemy minion;
+    GameObject playerobj;
+    PlayerS plyrInit;
+    int prevW;
 
     StatStruct stats;
     public int mType = 0; //0=slime,1=fish,2=bird
@@ -28,11 +31,18 @@ public class EnemyMgr : MonoBehaviour
         stats.dX = dX;
         stats.dY = dY;
         createEnemy();
+        playerobj = GameObject.FindGameObjectWithTag("Plyr");
+        plyrInit = playerobj.GetComponent<PlayerS>();
+        prevW = plyrInit.wType;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(prevW != plyrInit.wType){
+            mType = (mType+1)%3;
+            prevW = plyrInit.wType;
+        }
         createEnemy();
         minion.MoveEnemy();
     }
@@ -48,11 +58,15 @@ public class EnemyMgr : MonoBehaviour
             minion = gameObject.AddComponent<Slime>();
             minion.dX = dX;
             minion.dY = dY;
+            //minion.GetComponent<Rigidbody2D>().gravityScale = 1;
+
         }
         else if(mType == 1){
             minion = gameObject.AddComponent<Fish>();
             minion.dX = dX*2;
             minion.dY = dY*2;
+            //minion.GetComponent<Rigidbody2D>().gravityScale = 4;
+
         }
         else if(mType == 2){
             minion = gameObject.AddComponent<Bird>();
