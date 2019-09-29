@@ -282,18 +282,23 @@ public class Bird : Enemy
         // Testing Purposes
         movement.x = dX;
         movement.y = dY;
-        Debug.Log(Mathf.Abs(plyrTrns.position.x - this.transform.position.x));
+        //Debug.Log(Mathf.Abs(plyrTrns.position.x - this.transform.position.x));
 
         if(Mathf.Abs(plyrTrns.position.x - this.transform.position.x) < 5){
             if(!swooping){
+                Debug.Log("Swooop");
                 Swoop();
             }
         }
         else{
             swooping = false;
         }
-        if(transform.position.y <= GameObject.FindWithTag("Ground").transform.position.y + 5){
+
+        if(transform.position.y <= GameObject.FindWithTag("Ground").transform.position.y + 5 && !swooping){
             movement.y = 0.1f;
+        }
+        else{
+            movement.y = 0f;
         }
 
         if(dir == true){

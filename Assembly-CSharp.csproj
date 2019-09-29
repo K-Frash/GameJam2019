@@ -55,7 +55,9 @@
   <ItemGroup>
      <Compile Include="Assets\Enemy.cs" />
      <Compile Include="Assets\EnemyMgr.cs" />
+     <Compile Include="Assets\PlayerS.cs" />
      <Compile Include="Assets\tmpPlyr.cs" />
+     <Compile Include="Assets\WeaponS.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/kfras/GameJam2019/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
