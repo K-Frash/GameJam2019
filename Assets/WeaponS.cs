@@ -6,13 +6,11 @@ public class Weapon : MonoBehaviour
 {
     Vector2 movement;
     SpriteRenderer col;
-
     
     bool dir = true; //True == Right, False = Left
     float timer = 1f;
     public float dX;
     public float dY;
-    
 
     //Public Variables for testing
     

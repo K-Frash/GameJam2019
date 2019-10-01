@@ -12,7 +12,6 @@ public class PlayerS : MonoBehaviour
 
     bool dir = true;
 
-
     //float speed = 20.0f;
     float height = 10.0f;
     bool jump = true;
@@ -78,7 +77,6 @@ public class PlayerS : MonoBehaviour
             movement.x = 0f;
         }
 
-        
         /* 
         if (rightPressed) {
             rb2d.AddForce(transform.right * speed);
